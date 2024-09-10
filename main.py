@@ -1,12 +1,13 @@
+# Filename: main.py
 
-from sklearn.datasets import load_boston
+from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 import joblib
 
 def load_data():
-    data = load_boston()
+    data = fetch_california_housing()
     return data.data, data.target
 
 def preprocess_data(X, y):
