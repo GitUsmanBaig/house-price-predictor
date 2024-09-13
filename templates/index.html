@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>House Price Predictor</h1>
+        <form method="post" action="/">
+            <input type="number" name="medianIncome" placeholder="Median Income" required step="0.0001">
+            <input type="number" name="houseAge" placeholder="House Age" required>
+            <input type="number" name="roomsPerHousehold" placeholder="Rooms per Household" required step="0.0001">
+            <input type="number" name="bedroomsPerHousehold" placeholder="Bedrooms per Household" required step="0.0001">
+            <input type="number" name="population" placeholder="Population" required>
+            <input type="number" name="households" placeholder="Households" required step="0.0001">
+            <input type="number" name="latitude" placeholder="Latitude" required step="0.0001">
+            <input type="number" name="longitude" placeholder="Longitude" required step="0.0001">
+            <button type="submit">Predict Price</button>
+        </form>
+        {% if prediction is not none %}
+            <div id="result">Predicted Price: ${{ prediction }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
