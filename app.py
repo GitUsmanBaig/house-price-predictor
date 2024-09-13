@@ -1,31 +1,29 @@
-# Filename: app.py
-
 from flask import Flask, request, jsonify
 import joblib
-import os
 
 app = Flask(__name__)
 
-# Check if the model file exists
-model_file = 'model.pkl'
-if os.path.exists(model_file):
-    model = joblib.load(model_file)
-else:
-    model = None
-    print("Model file not found. Please train the model by running main.py.")
+# Load your trained model
+model = joblib.load('path_to_your_model/house_price_predictor_model.joblib')
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    if model is not None:
-        try:
-            data = request.get_json()
-            features = data['features']
-            prediction = model.predict([features])
-            return jsonify({'prediction': list(prediction)})
-        except Exception as e:
-            return jsonify({'error': str(e)})
-    else:
-        return jsonify({'error': 'Model not loaded. Please train the model and try again.'})
+    try:
+        # Get data from Post request
+        data = request.get_json()
+        # Assuming data is passed as a list of values
+        features = [data['area'], data['bedrooms'], data['bathrooms'], data['stories'],
+                    data['mainroad'], data['guestroom'], data['basement'],
+                    data['hotwaterheating'], data['airconditioning'], data['parking'],
+                    data['prefarea'], data['furnishingstatus']]
+        
+        # Make prediction
+        prediction = model.predict([features])[0]  # [0] to get the single value
+        
+        # Respond with prediction
+        return jsonify({'prediction': prediction})
+    except Exception as e:
+        return jsonify({'error': str(e)})
 
 if __name__ == '__main__':
     app.run(debug=True)
