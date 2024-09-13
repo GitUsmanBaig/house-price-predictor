@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, render_template, jsonify
 import joblib
 import numpy as np
 import os
@@ -14,25 +14,32 @@ else:
     model = None
     print("Failed to load model")
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    # Serve the HTML page
-    return render_template('index.html')
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    if model:
-        try:
-            data = request.get_json()
-            features = np.array(data['features']).reshape(1, -1)  # Ensure the input features match the expected shape
-            prediction = model.predict(features)
-            return jsonify({'prediction': list(prediction)})
-        except KeyError as ke:
-            return jsonify({'error': f'Missing key in data: {str(ke)}'}), 400
-        except Exception as e:
-            return jsonify({'error': str(e)}), 400
+    if request.method == 'POST':
+        if model:
+            try:
+                features = [
+                    float(request.form['medianIncome']),
+                    float(request.form['houseAge']),
+                    float(request.form['roomsPerHousehold']),
+                    float(request.form['bedroomsPerHousehold']),
+                    float(request.form['population']),
+                    float(request.form['households']),
+                    float(request.form['latitude']),
+                    float(request.form['longitude'])
+                ]
+                features = np.array(features).reshape(1, -1)  # Reshape for prediction
+                prediction = model.predict(features)
+                prediction = prediction[0]  # Take the first (and only) prediction
+                result = f"Predicted Price: ${prediction:.2f}"
+            except Exception as e:
+                result = f"Error: {str(e)}"
+        else:
+            result = "Error: Model not loaded"
     else:
-        return jsonify({'error': 'Model not loaded'}), 500
+        result = None
+    return render_template('index.html', prediction=result)
 
 if __name__ == '__main__':
     app.run(debug=True)
