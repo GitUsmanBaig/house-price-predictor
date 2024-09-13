@@ -7,13 +7,13 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
         bedrooms: document.getElementById('bedrooms').value,
         bathrooms: document.getElementById('bathrooms').value,
         stories: document.getElementById('stories').value,
-        mainroad: document.getElementById('mainroad').value,
-        guestroom: document.getElementById('guestroom').value,
-        basement: document.getElementById('basement').value,
-        hotwaterheating: document.getElementById('hotwaterheating').value,
-        airconditioning: document.getElementById('airconditioning').value,
-        parking: document.getElementById('parking').value,
-        prefarea: document.getElementById('prefarea').value,
+        mainroad: document.getElementById('mainroad').value.toLowerCase() === 'yes',
+        guestroom: document.getElementById('guestroom').value.toLowerCase() === 'yes',
+        basement: document.getElementById('basement').value.toLowerCase() === 'yes',
+        hotwaterheating: document.getElementById('hotwaterheating').value.toLowerCase() === 'yes',
+        airconditioning: document.getElementById('airconditioning').value.toLowerCase() === 'yes',
+        parking: parseInt(document.getElementById('parking').value),
+        prefarea: document.getElementById('prefarea').value.toLowerCase() === 'yes',
         furnishingstatus: document.getElementById('furnishingstatus').value
     };
 
@@ -29,5 +29,8 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
     .then(data => {
         document.getElementById('result').innerHTML = `Predicted Price: ${data.prediction}`;
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('result').innerHTML = `Error: ${error.message}`;
+    });
 });
