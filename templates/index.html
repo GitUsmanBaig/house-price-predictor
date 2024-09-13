@@ -10,18 +10,68 @@
     <div class="container">
         <h1>House Price Prediction Form</h1>
         <form id="predictionForm">
-            <input type="text" id="area" placeholder="Area (sq ft)" required>
-            <input type="number" id="bedrooms" placeholder="Bedrooms" required>
-            <input type="number" id="bathrooms" placeholder="Bathrooms" required>
-            <input type="number" id="stories" placeholder="Stories" required>
-            <input type="text" id="mainroad" placeholder="Main Road (yes/no)" required>
-            <input type="text" id="guestroom" placeholder="Guest Room (yes/no)" required>
-            <input type="text" id="basement" placeholder="Basement (yes/no)" required>
-            <input type="text" id="hotwaterheating" placeholder="Hot Water Heating (yes/no)" required>
-            <input type="text" id="airconditioning" placeholder="Air Conditioning (yes/no)" required>
-            <input type="number" id="parking" placeholder="Parking" required>
-            <input type="text" id="prefarea" placeholder="Preferred Area (yes/no)" required>
-            <input type="text" id="furnishingstatus" placeholder="Furnishing Status (furnished/semi/unfurnished)" required>
+            <label for="area">Area (sq ft):</label>
+            <input type="number" id="area" placeholder="Area (sq ft)" required>
+
+            <label for="bedrooms">Bedrooms:</label>
+            <input type="range" id="bedrooms" min="1" max="5" value="1" oninput="this.nextElementSibling.value = this.value">
+            <output>1</output>
+
+            <label for="bathrooms">Bathrooms:</label>
+            <input type="range" id="bathrooms" min="1" max="5" value="1" oninput="this.nextElementSibling.value = this.value">
+            <output>1</output>
+
+            <label for="stories">Stories:</label>
+            <input type="range" id="stories" min="1" max="5" value="1" oninput="this.nextElementSibling.value = this.value">
+            <output>1</output>
+
+            <label for="mainroad">Main Road Access:</label>
+            <select id="mainroad">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="guestroom">Guest Room:</label>
+            <select id="guestroom">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="basement">Basement:</label>
+            <select id="basement">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="hotwaterheating">Hot Water Heating:</label>
+            <select id="hotwaterheating">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="airconditioning">Air Conditioning:</label>
+            <select id="airconditioning">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="parking">Parking:</label>
+            <input type="range" id="parking" min="0" max="5" value="0" oninput="this.nextElementSibling.value = this.value">
+            <output>0</output>
+
+            <label for="prefarea">Preferred Area:</label>
+            <select id="prefarea">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="furnishingstatus">Furnishing Status:</label>
+            <select id="furnishingstatus">
+                <option value="furnished">Furnished</option>
+                <option value="semi-furnished">Semi-Furnished</option>
+                <option value="unfurnished">Unfurnished</option>
+            </select>
+
             <button type="submit">Predict Price</button>
         </form>
         <h2 id="result"></h2>
