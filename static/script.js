@@ -4,18 +4,20 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
     // Gather form data
     let formData = {
         area: document.getElementById('area').value,
-        bedrooms: document.getElementById('bedrooms').value,
-        bathrooms: document.getElementById('bathrooms').value,
-        stories: document.getElementById('stories').value,
-        mainroad: document.getElementById('mainroad').value.toLowerCase() === 'yes',
-        guestroom: document.getElementById('guestroom').value.toLowerCase() === 'yes',
-        basement: document.getElementById('basement').value.toLowerCase() === 'yes',
-        hotwaterheating: document.getElementById('hotwaterheating').value.toLowerCase() === 'yes',
-        airconditioning: document.getElementById('airconditioning').value.toLowerCase() === 'yes',
+        bedrooms: parseInt(document.getElementById('bedrooms').value),
+        bathrooms: parseInt(document.getElementById('bathrooms').value),
+        stories: parseInt(document.getElementById('stories').value),
+        mainroad: document.getElementById('mainroad').value,
+        guestroom: document.getElementById('guestroom').value,
+        basement: document.getElementById('basement').value,
+        hotwaterheating: document.getElementById('hotwaterheating').value,
+        airconditioning: document.getElementById('airconditioning').value,
         parking: parseInt(document.getElementById('parking').value),
-        prefarea: document.getElementById('prefarea').value.toLowerCase() === 'yes',
+        prefarea: document.getElementById('prefarea').value,
         furnishingstatus: document.getElementById('furnishingstatus').value
     };
+
+    console.log("Sending Data:", formData); // Log the data being sent
 
     // Send data to Flask API
     fetch('http://localhost:5000/predict', {
@@ -27,10 +29,15 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
     })
     .then(response => response.json())
     .then(data => {
-        document.getElementById('result').innerHTML = `Predicted Price: ${data.prediction}`;
+        if(data.error) {
+            console.error('Error:', data.error);
+            document.getElementById('result').innerHTML = `Error: ${data.error}`;
+        } else {
+            document.getElementById('result').innerHTML = `Predicted Price: ${data.prediction}`;
+        }
     })
     .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('result').innerHTML = `Error: ${error.message}`;
+        console.error('Fetch Error:', error);
+        document.getElementById('result').innerHTML = `Fetch Error: ${error.message}`;
     });
 });
