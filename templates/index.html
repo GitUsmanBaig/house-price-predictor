@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>House Price Prediction Form</h1>
+        <form id="predictionForm">
+            <input type="text" id="area" placeholder="Area (sq ft)" required>
+            <input type="number" id="bedrooms" placeholder="Bedrooms" required>
+            <input type="number" id="bathrooms" placeholder="Bathrooms" required>
+            <input type="number" id="stories" placeholder="Stories" required>
+            <input type="text" id="mainroad" placeholder="Main Road (yes/no)" required>
+            <input type="text" id="guestroom" placeholder="Guest Room (yes/no)" required>
+            <input type="text" id="basement" placeholder="Basement (yes/no)" required>
+            <input type="text" id="hotwaterheating" placeholder="Hot Water Heating (yes/no)" required>
+            <input type="text" id="airconditioning" placeholder="Air Conditioning (yes/no)" required>
+            <input type="number" id="parking" placeholder="Parking" required>
+            <input type="text" id="prefarea" placeholder="Preferred Area (yes/no)" required>
+            <input type="text" id="furnishingstatus" placeholder="Furnishing Status (furnished/semi/unfurnished)" required>
+            <button type="submit">Predict Price</button>
+        </form>
+        <h2 id="result"></h2>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
