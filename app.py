@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
 
 # Load your trained model
-model = joblib.load('house_price_predictor_model.joblib')
+model = joblib.load('house_price_predictor_model.pkl')
 
 @app.route('/', methods=['GET'])
 def home():
