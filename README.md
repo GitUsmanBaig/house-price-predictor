@@ -1,45 +1,94 @@
-Getting Started
-Prerequisites
-Python 3.8 or higher
-pip
-Docker (for containerization)
-Heroku CLI (for deployment)
-Installation
-Clone the repository
 
-bash
-Copy code
+# House Price Predictor
+
+This repository hosts a Flask-based web application designed to predict house prices using a RandomForestRegressor model trained on housing data. It includes a CI/CD pipeline utilizing GitHub Actions for automated testing and deployment across different environments.
+
+## View deployed model
+https://house-price-predictor-online-d4845b3ba057.herokuapp.com/
+
+## Features
+
+- **Flask API**: Handles prediction requests through RESTful endpoints.
+- **Machine Learning Model**: Utilizes RandomForestRegressor for predicting house prices.
+- **CI/CD Pipeline**: Automated workflows for continuous integration and deployment using GitHub Actions.
+- **Frontend Interface**: Provides a user-friendly interface for data input and displays predictions.
+
+## Project Structure
+
+```
+house-price-predictor/
+│
+├── static/
+│   └── css/
+│       └── style.css
+├── templates/
+│   └── index.html
+├── tests/
+│   └── app_test.py
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yaml
+├── app.py
+├── requirements.txt
+├── Dockerfile
+├── Procfile
+└── README.md
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.8+
+- pip
+- Docker (optional for containerization)
+- Heroku CLI (optional for Heroku deployment)
+
+### Installation
+
+Clone the repository:
+
+```
 git clone https://github.com/yourusername/house-price-predictor.git
 cd house-price-predictor
-Install dependencies
+```
 
-bash
-Copy code
+Install the required dependencies:
+
+```
 pip install -r requirements.txt
-Run the application locally
+```
 
-bash
-Copy code
+Run the application locally:
+
+```
 python app.py
-Usage
-To use the application, navigate to http://localhost:5000 after starting the server. You can input the required fields in the form and submit it to receive the house price predictions.
+```
 
-Testing
-Run the automated tests for this system:
+## Usage
 
+Access the web application by navigating to `http://localhost:5000` after starting the server. Enter the required details in the provided form and submit to receive the predicted house price.
 
-Deployment
-The application is set up to be deployed on Heroku using the provided Procfile and Docker configurations. Merges into the main, dev, and staging branches will trigger deployments to corresponding environments via GitHub Actions.
+## Testing
 
-Contributing
-Contributions are welcome! For major changes, please open an issue first to discuss what you would like to change.
+Execute the automated tests:
 
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+```
+pytest
+```
 
+## Deployment
 
-### Note
+The project is configured for deployment on Heroku using Docker. Updates to the `main`, `dev`, and `staging` branches trigger corresponding automated deployments through GitHub Actions.
 
-- Update placeholders like `https://github.com/yourusername/house-price-predictor.git` with your actual repository URL.
-- You might need to adjust paths and commands based on your exact project setup or any additional tools you are using.
-- This README assumes the use of Docker and Heroku for deployment, as discussed previously. Adjust these parts if you're using different technologies or platforms.
+## Contributing
+
+Contributions are welcome. Please open an issue to discuss proposed changes or enhancements.
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+Make sure to replace placeholders like the GitHub URL with your actual repository details. This README format uses Markdown conventions such as headers, code blocks, and lists to ensure clarity and improve the document's readability.
