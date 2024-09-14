@@ -89,6 +89,4 @@ Contributions are welcome. Please open an issue to discuss proposed changes or e
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
----
 
-Make sure to replace placeholders like the GitHub URL with your actual repository details. This README format uses Markdown conventions such as headers, code blocks, and lists to ensure clarity and improve the document's readability.
