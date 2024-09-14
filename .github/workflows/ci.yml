@@ -48,10 +48,11 @@ jobs:
           tags: abdullahdaniyal1234/my-flask-app:latest
 
       - name: Deploy to Heroku
+        run: |
+          wget -qO- https://toolbelt.heroku.com/install.sh | sh
+          heroku container:login
+          echo ${{ secrets.HEROKU_API_KEY }} | docker login --username=_ --password-stdin registry.heroku.com
+          heroku container:push web --app house-price-predictor-online
+          heroku container:release web --app house-price-predictor-online
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          heroku container:login
-          docker tag user/my-flask-app:latest registry.heroku.com/house-price-predictor-online/web
-          docker push registry.heroku.com/house-price-predictor-online/web
-          heroku container:release web --app house-price-predictor-online
