@@ -1,29 +1,37 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import joblib
+import pandas as pd
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # This will enable CORS for all routes
 
 # Load your trained model
-model = joblib.load('path_to_your_model/house_price_predictor_model.joblib')
+model = joblib.load('house_price_predictor_model.pkl')
+
+@app.route('/', methods=['GET'])
+def home():
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Get data from Post request
-        data = request.get_json()
-        # Assuming data is passed as a list of values
-        features = [data['area'], data['bedrooms'], data['bathrooms'], data['stories'],
-                    data['mainroad'], data['guestroom'], data['basement'],
-                    data['hotwaterheating'], data['airconditioning'], data['parking'],
-                    data['prefarea'], data['furnishingstatus']]
+        # Get JSON data from the request
+        data = request.get_json(force=True)
+        print("Received data:", data)  # Log received data
         
+        # Convert input data into DataFrame
+        input_df = pd.DataFrame([data])
+        print("DataFrame:", input_df)  # Log the DataFrame
+
         # Make prediction
-        prediction = model.predict([features])[0]  # [0] to get the single value
-        
+        prediction = model.predict(input_df)[0]  # Get the first prediction
+
         # Respond with prediction
         return jsonify({'prediction': prediction})
     except Exception as e:
-        return jsonify({'error': str(e)})
+        print("Error:", str(e))  # Log the error
+        return jsonify({'error': str(e)}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)
